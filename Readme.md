@@ -60,7 +60,7 @@ Ahora, está listo para usarse con tus aplicaciones desarrolladas en Android a t
 Si alguna vez se pierde la conexión adb:
 
 1. Asegúrese de que su host todavía esté conectado a la misma red Wi-Fi que su dispositivo Android.
-2. Vuelva a conectarse ejecutando el adb connectpaso nuevamente.
+2. Vuelva a conectarse ejecutando el adb connect paso nuevamente.
 3. O si eso no funciona, restablezca su host adb:
 
 ```powershell
@@ -142,7 +142,7 @@ class _State extends State<MyApp>{
 Tenemos el siguite resultado:
 
 <p style="text-align: center;">
-	<img src="screenshots/container_widget_Flutter.PNG">
+	<img src="screenshots/container_widget_Flutter.jpg">
 </p>
 
 
@@ -180,7 +180,7 @@ body: Container(
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/row_widget_Flutter.PNG">
+	<img src="screenshots/row_widget_Flutter.jpg">
 </p>
 
 #### Posibles problemas
@@ -205,7 +205,7 @@ body: Container(
 Observarás algo similar a:
 
 <p style="text-align: center;">
-	<img src="screenshots/row_widget_Flutter_desbordamiento.PNG">
+	<img src="screenshots/row_widget_Flutter_desbordamiento.jpg">
 </p>
 
 Para solucionar esto envolvemos al segundo hijo en un widget `Expanded` 
@@ -226,7 +226,7 @@ body: Container(
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/row_widget_Flutter_desbordamiento_solucionado.PNG">
+	<img src="screenshots/row_widget_Flutter_desbordamiento_solucionado.jpg">
 </p>
 
 
@@ -262,7 +262,7 @@ body: Container(
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/column_widget_Flutter.PNG">
+	<img src="screenshots/column_widget_Flutter.jpg">
 </p>
 
 
@@ -284,7 +284,7 @@ body: Container(
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/column_widget_Flutter_alignment.PNG">
+	<img src="screenshots/column_widget_Flutter_alignment.jpg">
 </p>
 
 
@@ -334,7 +334,7 @@ body: Container(
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/image_widget_Flutter.PNG">
+	<img src="screenshots/image_widget_Flutter.jpg">
 </p>
 
 
@@ -362,7 +362,7 @@ body: Container(
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/text_widget_Flutter.PNG">
+	<img src="screenshots/text_widget_Flutter.jpg">
 </p>
 
 Usando el constructor `Text.rich` el widget `Text` puede mostrar un párrafo con `TextSpan` de estilo diferente.
@@ -381,7 +381,7 @@ Usando el constructor `Text.rich` el widget `Text` puede mostrar un párrafo con
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/text_textspan_widget_Flutter.PNG">
+	<img src="screenshots/text_textspan_widget_Flutter.jpg">
 </p>
 
 ### Icon
@@ -416,7 +416,7 @@ Debe haber un widget de direccionalidad ambiental cuando se usa `Icon`.
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/icon_widget_Flutter.PNG">
+	<img src="screenshots/icon_widget_Flutter.jpg">
 </p>
 
 ### RaisedButton
@@ -472,7 +472,7 @@ Ejemplo con RaisedButton deshabilitado, habilitado y degradado.
 
 
 <p style="text-align: center;">
-	<img src="screenshots/raisedbutton_widget_Flutter.PNG">
+	<img src="screenshots/raisedbutton_widget_Flutter.jpg">
 </p>
 
 ### Placeholder  
@@ -527,9 +527,6 @@ body: Container(
         )	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/placeholder_widget_Flutter.PNG">
-</p>
 
 ## Widgets de Componentes Material
 
@@ -568,7 +565,7 @@ class _State extends State<MyApp> {
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/scalfold_widget_Flutter.PNG">
+	<img src="screenshots/scalfold_widget_Flutter.jpg">
 </p>
 
 ### BottomNavigationBar
@@ -804,7 +801,7 @@ class _State extends State<MyApp> {
 ```
 
 <p style="text-align: center;">
-	<img src="screenshots/Material_routes_widget_Flutter.PNG">
+	<img src="screenshots/Material_routes_widget_Flutter.jpg">
 </p>
 
 
@@ -998,89 +995,482 @@ class _State extends State<MyApp> {
 
 Las alertas son interrupciones urgentes que requieren reconocimiento e informan al usuario sobre una situación. El widget `AlertDialog` implementa este componente.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```dart
-	
-```
+class MyApp extends StatefulWidget {
+  @override
+  _State createState() => _State();
+}
 
-```dart
-	
-```
+class _State extends State<MyApp> {
 
-```dart
-	
-```
-```dart
-	
-```
+  Future _showAlert(BuildContext context, String msg) async{
+    return showDialog(context: context, child: AlertDialog(
+      title: Text(msg),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: ()=> Navigator.pop(context),
+          child: Text('Ok'),
+        )
+      ],
+    ));
+  }
 
-```dart
-	
-```
-```dart
-	
-```
 
-```dart
-	
-```
-
-```dart
-	
-```
-
-```dart
-	
-```
-
-```dart
-	
-```
-
-```dart
-	
-```
-
-```dart
-	
-```
-```dart
-	
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: Container(
+            padding: EdgeInsets.all(28.0),
+            child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Text('Texto'),
+                    RaisedButton(
+                      onPressed: ()=> _showAlert(context, 'Mensaje de alerta'),
+                      child: Text('Click alert'),
+                    )
+                  ],
+                )
+            )
+        )
+    );
+  }
+}
 ```
 
 
+## Wigets de animación y movimiento
+
+Wigets que brindan animaciones a tu aplicación.
 
 
+### AnimatedContainer 
+
+Versión animada de `Container` que gradualmente cambia sus valores en un periodo de tiempo.
+
+* El `AnimatedContainer` automáticamente animará entre los viejos y antiguos valores de propiedades cuando ellos cambian.
+* Esta clase es útil para generar transiciones implícitas simples entre diferentes parámetros al `Container` con su `AnimationController` interno.
+
+El siguiente ejemplo hace una transición de un Contenedor animado entre dos estados.
+
+```dart
+class _State extends State<MyApp> {
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: GestureDetector(
+          onTap: () {
+            setState(() {
+              selected = !selected;
+            });
+          },
+          child: Center(
+            child: AnimatedContainer(
+              width: selected ? 200.0 : 100.0,
+              height: selected ? 100.0 : 200.0,
+              color: selected ? Colors.red : Colors.blue,
+              alignment:
+                  selected ? Alignment.center : AlignmentDirectional.topCenter,
+              duration: Duration(seconds: 2),
+              curve: Curves.fastOutSlowIn,
+              child: FlutterLogo(size: 75),
+            ),
+          ),
+        )
+    );
+  }
+}	
+```
+
+<p style="text-align: center;">
+	<img src="screenshots/AnimatedContainer_widget_Flutter.mp4">
+</p>
+
+### AnimatedCrossFade
+
+Un widget que se desvanece entre dos hijos dados y se anima entre sus tamaños.
+
+* La animación se controla a través del parámetro `crossFadeState`. 
+* `firstCurve` y `secondCurve` representan las curvas de opacidad de los dos hijos.
+* Este widget está destinado a usarse para desvanecer un par de widgets con el mismo ancho. 
+* En el caso de que los dos hijos tengan diferentes alturas, la animación se recorta cuando los hijos se desbordan alineando su borde superior, lo que significa que se recortará el inferior.
+
+El siguiente código se desvanece entre dos representaciones del logotipo de Flutter. Depende del valor de `_first`, cuando es verdadero se muestra  el primer logotipo, de lo contrario se muestra el segundo logotipo.
+
+```dart
+class _State extends State<MyApp> {
+  bool _first = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body:
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _first = !_first;
+            });
+          },
+          child: Center(
+              child: AnimatedCrossFade(
+                duration: const Duration(seconds: 3),
+                firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
+                secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
+                crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              )
+          ),
+        )
+    );
+  }
+}
+	
+```
+
+<p style="text-align: center;">
+	<img src="screenshots/AnimatedCrossFade_widget_Flutter.mp4">
+</p>
+
+## Gestión de estados
+
+Llega un punto en el que necesitas compartir el estado de la aplicación entre pantallas, a través de tu aplicación.
+A continuación, veremos los conceptos básicos del manejo del estado en las aplicaciones Flutter.
+
+* Si vienes a Flutter desde un framework imperativo (como Android SDK o iOS UIKit), debes empezar a pensar en el desarrollo de aplicaciones a partir de una nueva perspectiva.
+* Muchas de las suposiciones que puedes tener no se aplican a Flutter. 
+* Por ejemplo, en Flutter, está bien reconstruir partes de su interfaz de usuario desde cero en lugar de modificarlas. 
+* Flutter es `declarativo`. Esto significa que Flutter construye su interfaz de usuario para reflejar el estado actual de su aplicación:
+
+<p style="text-align: center;">
+	<img src="screenshots/Funciones_estado_flutter.png">
+</p>
+
+* En el sentido más amplio posible, el estado de una aplicación es todo lo que existe en la memoria cuando la aplicación está en ejecución. 
+
+### Estado efímero
+
+No hay necesidad de serializarlo, y no cambia de manera compleja.
+En otras palabras, no es necesario utilizar técnicas de gestión de estado (“ScopedModel”, “Redux”, etc.) en este tipo de estados. Todo lo que necesitas es un “StatefulWidget”.
+
+En el siguiente ejemplo, `_índice` es un estado efímero.
+
+```dart
+	class MyHomepage extends StatefulWidget {
+  @override
+  _MyHomepageState createState() => _MyHomepageState();
+}
+
+class _MyHomepageState extends State<MyHomepage> {
+  int _index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: _index,
+      onTap: (newIndex) {
+        setState(() {
+          _index = newIndex;
+        });
+      },
+      // ... items ...
+    );
+  }
+}
+```
+
+* Usar `setState()` y un campo dentro de la clase `StatefulWidget` es completamente natural. 
+* Ninguna otra parte de tu aplicación necesita acceder a `_index`. 
+* La variable sólo cambia dentro del widget MyHomePage.
+* Si el usuario cierra y reinicia la aplicación, no importa que el `_índice` se restablezca a cero.
 
 
+### Estado de la app
+
+Llamamos estado de la aplicación cuando se quiere compartir en muchas partes de la aplicación, y se desea mantener entre sesiones de usuario.	 
+
+Ejemplos de estados de aplicación:
+
+* Información de inicio de sesión
+* Notificaciones en una aplicación de redes sociales
+* El carrito de compras en una aplicación de comercio electrónico
+* Estado de los artículos leídos/no leídos en una aplicación de noticias
+
+No existe una regla clara y universal para distinguir si una variable en particular es efímera o es estado de aplicación. A veces, tendrás que refactorizar uno en otro.
+
+Por esa razón, toma el siguiente diagrama proporcionado por Flutter (con el entendimiento de que exista la probabilidad de que algo sea falso o incorrecto):
+
+<p style="text-align: center;">
+	<img src="screenshots/estado_efimero_estado_app_Flutter.png">
+</p>
+
+En resumen, hay dos tipos conceptuales de estado en cualquier aplicación Flutter. El estado efímero puede ser implementado usando `State` y `setState()`, y a menudo es local a un solo widget. El resto es el estado de la aplicación.
+
+### Gestión sencilla del estado de las aplicaciones
+
+Usaremos `Provider` que es fácil de entender y no utiliza mucho código. También utiliza conceptos que son aplicables en todos los demás enfoques.
+
+Ejemplo sencillo:
+
+Una aplicación que tiene tres pantallas separadas:
+	* una ventana de inicio de sesión representado por el widget: `MyLoginScreen`
+	* una ventana de catálogo representado por el widget: `MyCatalog`
+	* una ventana de carrito representado por el widget: `MyCart`
+
+La pantalla del catálogo incluye una barra de aplicaciones personalizada (MyAppBar) y una vista de desplazamiento de muchos elementos de la lista (MyListItems).
+
+<p style="text-align: center;">
+	<img src="screenshots/widget_arbol-simple_flutter.png">
+</p>
+
+Así que tenemos al menos 6 subclases de Widget. Muchos de ellos necesitarán acceso a un estado que “pertenece” a otra parte. Por ejemplo, cada `MyListItem` podrá añadir al carrito. También podría querer ver si el artículo que está mostrando ya está en el carrito.
+
+#### Estado de elevación
+
+En Flutter, tiene sentido mantener el estado por encima de los widgets que lo utilizan. Es difícil cambiar imperativamente un widget desde fuera, llamando a un método en él.
+
+En Flutter, **construyes un nuevo widget cada vez que su contenido cambia**. En lugar de `MyCart.updateWith(somethingNew)` (una llamada de método) usas `MyCart(contents)` (un constructor).
+
+```dart
+// CORRECTO
+void myTapHandler(BuildContext context) {
+  var cartModel = somehowGetMyCartModel(context);
+  cartModel.add(item);
+}	
+```
+
+Con esto `MyCart` tiene sólo una ruta de código para construir cualquier versión de la interfaz de usuario.
+
+```dart
+// CORRECTO
+Widget build(BuildContext context) {
+  var cartModel = somehowGetMyCartModel(context);
+  return SomeWidget(
+    // Just construct the UI once, using the current state of the cart.
+    // ···
+  );
+}	
+```
+
+ MyCart no necesita preocuparse por el ciclo de vida soló declara qué mostrar para cualquier contents dado. Cuando eso cambia, el widget MyCart viejo desaparecer y es completamente reemplazado por uno nuevo.
+
+<p style="text-align: center;">
+	<img src="screenshots/arbol_widget_flutter_cart.png">
+</p>
+
+#### Acceso al estado
+
+Cuando el usuario hace clic en uno de los artículos del catálogo, se añade al carrito.
+Una opción simple es proporcionar un `callback` a la que `MyListItem` puede llamar cuando se hace clic en el. 
+Entonces, dentro de `MyCatalog` puedes tener lo siguiente:
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return SomeWidget(
+    // Contruye el widget, pasando la referencia al método de superior.
+    MyListItem(myTapCallback),
+  );
+}
+
+void myTapCallback(Item item) {
+  print('user tapped on $item');
+}	
+```
+
+Esto funciona bien, pero para el estado de la aplicación que necesitas modificar desde muchos lugares diferentes, tendrías que pasar un montón de llamadas de retorno.
+
+Afortunadamente, Flutter tiene mecanismos para que los widgets proporcionen datos y servicios a sus descendientes.
+Usaremos un paquete que funciona con los widgets de bajo nivel pero que es fácil de usar. Se llama `provider`.
+Con provider, no tienes que preocuparte por las llamadas de retorno o InheritedWidgets. Pero necesitas entender 3 conceptos:
+
+* ChangeNotifier
+* ChangeNotifierProvider
+* Consumer
+
+##### ChangeNotifier
+
+* Una clase que proporciona notificaciones a los cambios a sus ‘listeners’. Es como un Observable.
+* Para apps muy simples, te basta con un único ChangeNotifier.
+
+Gestionaremos el estado del carro en un `ChangeNotifier`.
+
+```dart
+class CartModel extends ChangeNotifier {
+  /// Estado privado del carrito.
+  final List<Item> _items = [];
+
+  /// Una vista inmodificable de items en el carrito.
+  UnmodifiableListView<Item> get items => UnmodifiableListView(_items);
+
+   /// El precio total actual de todos los items (asumiendo que todos cuestan $42).
+  int get totalPrice => _items.length * 42;
+
+  /// Añadir [item] al carro. Esta es la única manera de modificar el carrito desde fuera.
+  void add(Item item) {
+    _items.add(item);
+   // Esta llamada dice a los widgets que están escuchando este modelo que se reconstruyan.
+    notifyListeners();
+  }
+}	
+```
+
+El único código que es específico de ChangeNotifier es la llamada a `notifyListeners()`
 
 
+### JSON y serialización
+
+Cuando creamos apps conectadas a la red, lo más probable es que tengas que consumir algún JSON, tarde o temprano.
+
+Veremos dos estrategias generales para trabajar con JSON:
+
+* Serialización manual
+* Serialización automática usando auto-generación de código
+
+Para proyectos pequeños  usar auto-generación de código puede ser exagerado.
+
+#### Serialización manual para pequeños proyectos
+
+Implica pasar una cadena JSON en bruto a la función `json.decode()` y luego buscar los valores que necesita en el `Map<String, dynamic>` que devuelve el método.
+Flutter tiene la biblioteca `dart:convert` que incluye un sencillo codificador y decodificador JSON.
+
+Aquí hay un ejemplo de un JSON para un modelo sencillo.
+
+```dart
+{
+  "name": "Diego David",
+  "email": "diego@example.com"
+}	
+```
+
+Con `dart:convert`, puedes codificar este modelo JSON de dos maneras.
+
+##### Serializar un JSON en línea
+
+Puedes decodificar el JSON llamando al método `json.decode`
+
+```dart
+Map<String, dynamic> user = jsonDecode(jsonString);
+
+print('Hola, ${user['name']}!');
+print('Enviamos el enlace de verificación a ${user['email']}.');	
+```
+ 
+Desafortunadamente, `jsonDecode()` simplemente devuelve un `Map<String, dynamic>`, significando que no conoces los tipos de valores hasta el tiempo de ejecución.
+Con esta aproximación, pierdes la mayoría de las características del tipado estático del lenguaje:
+* seguridad de tipos
+* autocompletado
+* las excepciones en tiempo de compilación. 
+
+##### Serializar un JSON en una clase modelo
+
+Podemos resolver los problemas anteriores  introduciendo una clase de modelo plana, llamada `User` en este ejemplo. Dentro de la clase User, encontrarás:
+* Un constructor `User.fromJson()`, para construir una nueva instancia de User desde una estructura de mapa.
+* Un método `toJson()`, que convierte una instancia User en un mapa.
 
 
+```dart
+class User {
+  final String name;
+  final String email;
+
+  User(this.name, this.email);
+
+  User.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        email = json['email'];
+
+  Map<String, dynamic> toJson() =>
+    {
+      'name': name,
+      'email': email,
+    };
+}	
+```
+
+Con esto la responsabilidad de la lógica de **decodificación** esta ahora situada dentro del propio modelo. Con esta aproximación, puedes decodificar un usuario fácilmente.
+
+```dart
+Map userMap = jsonDecode(jsonString);
+var user = new User.fromJson(userMap);
+
+print('Hola,  ${user.name}!');
+print('Enviamos el enlace de verificación a ${user.email}.');	
+```
+
+Para codificar un usuario, pasa el objeto `User` al método `jsonEncode()`. No necesitas llamar al método `toJson()`, porque `jsonEncode()` ya hace esto por ti.
+
+```dart
+String json = jsonEncode(user);
+```
+
+En la práctica, los métodos `User.fromJson()` y `User.toJson()` necesitan ambos tener test unitarios para verificar un comportamiento correcto.
+
+Sin embargo, los escenarios del mundo real no son normalmente tan simples. Es poco probable que use respuestas JSON tan pequeñas.
+
+#### Serializar JSON usando librerías de auto-generación de código
+
+Aunque hay otras bibliotecas disponibles, esta guía usa el paquete [json_serializable](https://pub.dev/packages/json_serializable), un generador de código automatizado que genera el boilerplate del JSON serializado por ti.
+Esto te ayuda a minimizar el riesgo de tener excepciones por la serialización JSON en tiempo de ejecución.
+
+Para incluir `json_serializable`en tu proyecto, necesitas una dependencia regular, y dos _dev dependencies_.
+
+```dart
+dependencies:
+  # Tus otras dependencias regulares aquí
+  json_annotation: ^2.0.0
+
+dev_dependencies:
+  # Tus otras dev_dependencies aquí
+  build_runner: ^1.0.0
+  json_serializable: ^2.0.0	
+```
+
+Lo siguiente muestra como convertir una clase `User` en una clase `json_serializable`. 
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'user.g.dart';
 
 
+@JsonSerializable()
 
+class User {
+  User(this.name, this.email);
 
+  String name;
+  String email;
 
+   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
+  Map<String, dynamic> toJson() => _$UserToJson(this);
+}	
+```
 
+Con esta configuración, el auto-generador de código fuente, genera código para codificar y decodificar los campos `name` y `email` desde JSON.
 
+##### Auto-generación de código una única vez
 
+Ejecutando `flutter pub run build_runner build` en la raíz del proyecto, generas el código de serialización JSON para tus modelos, siempre que sea necesario. Esto desencadena una única compilación que pasa por los ficheros fuente, elige los relevantes, y genera el código de serialización necesario para ellos.
+
+##### Auto-generación contínua de código
+
+Un `watcher` hace nuestro proceso de auto-generación de código más conveniente. Este observa cambios en los ficheros de nuestro proyecto y compila automáticamente los archivos necesarios cuando se necesita. Inicia el watcher ejecutando `flutter pub run build_runner watch` en la raíz del proyecto.
+
+El auto-generador de código fuente crea un fichero llamado `user.g.dart`, que tiene toda la lógica de serialización necesaria. Ya no tienes que escribir más, pruebas automatizadas para asegurar que la serailización funciona
 
 
 
@@ -1089,8 +1479,4 @@ Las alertas son interrupciones urgentes que requieren reconocimiento e informan 
 [Widgets en Flutter](https://flutter-es.io/docs/development/ui/widgets)
 
 [developer.android](https://developer.android.com/studio/command-line/adb#wireless)
-
-
-
-
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-      home: MyApp(),
-      ));
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -11,36 +11,8 @@ class MyApp extends StatefulWidget {
   _State createState() => _State();
 }
 
-enum Options{YES,NO}
-
 class _State extends State<MyApp> {
-  String _value = '';
-
-  void _setValue(String value) => setState(()=> _value = value);
-
-  Future _event() async{
-    switch(
-    await showDialog(
-      context: context,
-      child: SimpleDialog(
-        title: Text('Texto del dialog'),
-        children: <Widget>[
-          SimpleDialogOption(child: Text('Ok'), onPressed: (){Navigator.pop(context, Options.YES);},),
-          SimpleDialogOption(child: Text('Cancel'), onPressed: (){Navigator.pop(context, Options.NO);},)
-        ],
-      ),
-    )
-    ){
-      case Options.YES:
-        _setValue("YES");
-        break;
-      case Options.NO:
-        _setValue("NO");
-        break;
-    }; //switch
-  }//_event
-
-
+  bool _first = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +21,21 @@ class _State extends State<MyApp> {
         appBar: AppBar(
           title: Text('My App'),
         ),
-        body: Container(
-            padding: EdgeInsets.all(28.0),
-            child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Text(_value),
-                    RaisedButton(
-                      onPressed: _event,
-                      child: Text('Click'),
-                    )
-                  ],
-                )
-            )
+        body:
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _first = !_first;
+            });
+          },
+          child: Center(
+              child: AnimatedCrossFade(
+                duration: const Duration(seconds: 3),
+                firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
+                secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
+                crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              )
+          ),
         )
     );
   }
