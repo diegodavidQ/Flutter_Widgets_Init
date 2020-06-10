@@ -29,8 +29,8 @@ adb está incluido en el paquete Android SDK Platform-Tools. Puede descargar est
 
 1. Si tienes instalado el Sdk de Android en Windows el path estará en esta dirección `C:\Users\usuario\AppData\Local\Android\sdk\platform-tools` si no lo tenías y lo descargaste, descomprime en algún lugar y actualiza el path en `variables de entorno`
 
-<p style="text-align: center;">
-	<img src="screenshots/variable_entorno_adb.PNG">
+<p align="center">
+	<img src="screenshots/variable_entorno_adb.PNG" width="500">
 </p>
 
 
@@ -51,8 +51,8 @@ adb connect <device ip addr>:5555
 adb devices
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/conexion_adb_device_wifi.PNG">
+<p align="center">
+	<img src="screenshots/conexion_adb_device_wifi.PNG" width="500">
 </p>
 
 Ahora, está listo para usarse con tus aplicaciones desarrolladas en Android a través de Wi-Fi.
@@ -141,8 +141,8 @@ class _State extends State<MyApp>{
 
 Tenemos el siguite resultado:
 
-<p style="text-align: center;">
-	<img src="screenshots/container_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/container_widget_Flutter.jpg" width="500">
 </p>
 
 
@@ -179,8 +179,8 @@ body: Container(
   )
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/row_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/row_widget_Flutter.jpg" width="500">
 </p>
 
 #### Posibles problemas
@@ -204,8 +204,8 @@ body: Container(
 
 Observarás algo similar a:
 
-<p style="text-align: center;">
-	<img src="screenshots/row_widget_Flutter_desbordamiento.jpg">
+<p align="center">
+	<img src="screenshots/row_widget_Flutter_desbordamiento.jpg" width="500">
 </p>
 
 Para solucionar esto envolvemos al segundo hijo en un widget `Expanded` 
@@ -225,8 +225,8 @@ body: Container(
       )	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/row_widget_Flutter_desbordamiento_solucionado.jpg">
+<p align="center">
+	<img src="screenshots/row_widget_Flutter_desbordamiento_solucionado.jpg" width="500">
 </p>
 
 
@@ -261,8 +261,8 @@ body: Container(
       )	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/column_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/column_widget_Flutter.jpg" width="500">
 </p>
 
 
@@ -283,8 +283,8 @@ body: Container(
       )	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/column_widget_Flutter_alignment.jpg">
+<p align="center">
+	<img src="screenshots/column_widget_Flutter_alignment.jpg" width="500">
 </p>
 
 
@@ -333,8 +333,8 @@ body: Container(
       )	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/image_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/image_widget_Flutter.jpg" width="500">
 </p>
 
 
@@ -361,8 +361,8 @@ body: Container(
       )	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/text_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/text_widget_Flutter.jpg" width="500">
 </p>
 
 Usando el constructor `Text.rich` el widget `Text` puede mostrar un párrafo con `TextSpan` de estilo diferente.
@@ -380,8 +380,8 @@ Usando el constructor `Text.rich` el widget `Text` puede mostrar un párrafo con
             )	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/text_textspan_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/text_textspan_widget_Flutter.jpg" width="500">
 </p>
 
 ### Icon
@@ -415,8 +415,8 @@ Debe haber un widget de direccionalidad ambiental cuando se usa `Icon`.
       )
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/icon_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/icon_widget_Flutter.jpg" width="500">
 </p>
 
 ### RaisedButton
@@ -471,8 +471,8 @@ Ejemplo con RaisedButton deshabilitado, habilitado y degradado.
 ```
 
 
-<p style="text-align: center;">
-	<img src="screenshots/raisedbutton_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/raisedbutton_widget_Flutter.jpg" width="500">
 </p>
 
 ### Placeholder  
@@ -564,8 +564,8 @@ class _State extends State<MyApp> {
 }	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/scalfold_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/scalfold_widget_Flutter.jpg" width="500">
 </p>
 
 ### BottomNavigationBar
@@ -661,8 +661,8 @@ class _State extends State<MyApp> {
 }	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/BottomNavigationBar_widget_Flutter.mp4">
+<p align="center">
+	<img src="screenshots/BottomNavigationBar_widget_Flutter.gif" width="500">
 </p>
 
 ### TabBar 
@@ -681,10 +681,11 @@ Coordina la selección de pestañas entre un `TabBar` y un `TabBarView`.
 
 La propiedad `index` es el índice de la pestaña seleccionada y `animation` representa las posiciones de desplazamiento actuales de la barra de pestañas. El índice de la pestaña seleccionada se puede cambiar con `animateTo`.
 
-Para el siguiente ejemplo usamos `SingleTickerProviderStateMixin`
+Para el siguiente ejemplo usamos `SingleTickerProviderStateMixin`.
 
 
 ```dart
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -749,11 +750,12 @@ class _State extends State<MyApp> with SingleTickerProviderStateMixin {
 
     );
   }
-}	
+}
+
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/TabController_widget_Flutter.mp4">
+<p align="center">
+	<img src="screenshots/TabController_widget_Flutter.gif" width="500">
 </p>
 
 
@@ -800,8 +802,8 @@ class _State extends State<MyApp> {
 }
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/Material_routes_widget_Flutter.jpg">
+<p align="center">
+	<img src="screenshots/Material_routes_widget_Flutter.jpg" width="500">
 </p>
 
 
@@ -1092,8 +1094,8 @@ class _State extends State<MyApp> {
 }	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/AnimatedContainer_widget_Flutter.mp4">
+<p align="center">
+	<img src="screenshots/AnimatedContainer_widget_Flutter.gif" width="500">
 </p>
 
 ### AnimatedCrossFade
@@ -1140,8 +1142,8 @@ class _State extends State<MyApp> {
 	
 ```
 
-<p style="text-align: center;">
-	<img src="screenshots/AnimatedCrossFade_widget_Flutter.mp4">
+<p align="center">
+	<img src="screenshots/AnimatedCrossFade_widget_Flutter.gif" width="500">
 </p>
 
 ## Gestión de estados
@@ -1154,8 +1156,8 @@ A continuación, veremos los conceptos básicos del manejo del estado en las apl
 * Por ejemplo, en Flutter, está bien reconstruir partes de su interfaz de usuario desde cero en lugar de modificarlas. 
 * Flutter es `declarativo`. Esto significa que Flutter construye su interfaz de usuario para reflejar el estado actual de su aplicación:
 
-<p style="text-align: center;">
-	<img src="screenshots/Funciones_estado_flutter.png">
+<p align="center">
+	<img src="screenshots/Funciones_estado_flutter.png" width="500">
 </p>
 
 * En el sentido más amplio posible, el estado de una aplicación es todo lo que existe en la memoria cuando la aplicación está en ejecución. 
@@ -1212,8 +1214,8 @@ No existe una regla clara y universal para distinguir si una variable en particu
 
 Por esa razón, toma el siguiente diagrama proporcionado por Flutter (con el entendimiento de que exista la probabilidad de que algo sea falso o incorrecto):
 
-<p style="text-align: center;">
-	<img src="screenshots/estado_efimero_estado_app_Flutter.png">
+<p align="center">
+	<img src="screenshots/estado_efimero_estado_app_Flutter.png" width="500">
 </p>
 
 En resumen, hay dos tipos conceptuales de estado en cualquier aplicación Flutter. El estado efímero puede ser implementado usando `State` y `setState()`, y a menudo es local a un solo widget. El resto es el estado de la aplicación.
@@ -1231,8 +1233,8 @@ Una aplicación que tiene tres pantallas separadas:
 
 La pantalla del catálogo incluye una barra de aplicaciones personalizada (MyAppBar) y una vista de desplazamiento de muchos elementos de la lista (MyListItems).
 
-<p style="text-align: center;">
-	<img src="screenshots/widget_arbol-simple_flutter.png">
+<p align="center">
+	<img src="screenshots/widget_arbol-simple_flutter.png" width="500">
 </p>
 
 Así que tenemos al menos 6 subclases de Widget. Muchos de ellos necesitarán acceso a un estado que “pertenece” a otra parte. Por ejemplo, cada `MyListItem` podrá añadir al carrito. También podría querer ver si el artículo que está mostrando ya está en el carrito.
@@ -1266,8 +1268,8 @@ Widget build(BuildContext context) {
 
  MyCart no necesita preocuparse por el ciclo de vida soló declara qué mostrar para cualquier contents dado. Cuando eso cambia, el widget MyCart viejo desaparecer y es completamente reemplazado por uno nuevo.
 
-<p style="text-align: center;">
-	<img src="screenshots/arbol_widget_flutter_cart.png">
+<p align="center">
+	<img src="screenshots/arbol_widget_flutter_cart.png" width="500">
 </p>
 
 #### Acceso al estado
@@ -1471,7 +1473,6 @@ Ejecutando `flutter pub run build_runner build` en la raíz del proyecto, genera
 Un `watcher` hace nuestro proceso de auto-generación de código más conveniente. Este observa cambios en los ficheros de nuestro proyecto y compila automáticamente los archivos necesarios cuando se necesita. Inicia el watcher ejecutando `flutter pub run build_runner watch` en la raíz del proyecto.
 
 El auto-generador de código fuente crea un fichero llamado `user.g.dart`, que tiene toda la lógica de serialización necesaria. Ya no tienes que escribir más, pruebas automatizadas para asegurar que la serailización funciona
-
 
 
 ## Recursos

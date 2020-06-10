@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styles_template.css">
+    <link rel="stylesheet" href="./styles/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <title>Flutter_Widgets</title>
+</head>
+<body id="bodytemplate">
+    <h1 id="flutter">Flutter</h1>
+<h2 id="instalar-chocolate">Instalar Chocolate</h2>
+<ol>
+<li><p>Vamos al sitio oficial de <a href="">chocolate</a></p>
+</li>
+<li><p>Copiamos el comando de instalación para powershell V3+</p>
+</li>
+<li><p>Abrimos el powershell como administrador, pegamos el comando y damos enter.</p>
+</li>
+</ol>
+<pre><code class="language-shell">Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex</code></pre>
+<h2 id="actualizar-dart">Actualizar dart</h2>
+<p>Vamos al sitio oficial de <a href="">dart</a> copiamos el enlace de upgrade y pegamos en el powershell.</p>
+<pre><code class="language-shell">choco upgrade dart-sdk</code></pre>
+<h2 id="conectar-un-dispositivo-vía-wi-fi">Conectar un dispositivo vía Wi-fi</h2>
+<p><strong>adb</strong> usualmente se comunica con los dispositivos vía USB, pero tú puedes también usar adb vía Wi-fi después de una configuración inicial a través de USB.</p>
+<p>adb está incluido en el paquete Android SDK Platform-Tools. Puede descargar este paquete con el SDK Manager, que lo instala en android_sdk/platform-tools/. O si desea el paquete independiente de herramientas de plataforma SDK de Android, puede <a href="https://developer.android.com/studio/releases/platform-tools">descargarlo aquí</a>.</p>
+<ol>
+<li>Si tienes instalado el Sdk de Android en Windows el path estará en esta dirección <code>C:\Users\usuario\AppData\Local\Android\sdk\platform-tools</code> si no lo tenías y lo descargaste, descomprime en algún lugar y actualiza el path en <code>variables de entorno</code></li>
+</ol>
+<p align="center">
+    <img width="500" src="screenshots/variable_entorno_adb.PNG">
+</p>
+
+
+
+<ol start="2">
+<li><p>Conecte su dispositivo Android y su computadora host adb a una red Wi-Fi común accesible para ambos.</p>
+</li>
+<li><p>Si se está conectando a un dispositivo Wear OS, apague Bluetooth en el teléfono que está emparejado con el dispositivo.</p>
+</li>
+<li><p>Abre las configuraciones de tu teléfono &gt; Wi-Fi &gt; Ajustes adicionales, anota tu dirección IP a la que estás conectado, ejemplo: 192.168.0.100</p>
+</li>
+<li><p>Conecte el dispositivo a la computadora host con un cable USB.</p>
+</li>
+<li><p>Configure el dispositivo de destino para escuchar una conexión TCP/IP en el puerto 5555.</p>
+</li>
+</ol>
+<pre><code class="language-powershell">adb tcpip 5555
+adb connect &lt;device ip addr&gt;:5555
+adb devices</code></pre>
+<p align="center">
+    <img width="500" src="screenshots/conexion_adb_device_wifi.PNG">
+</p>
+
+<p>Ahora, está listo para usarse con tus aplicaciones desarrolladas en Android a través de Wi-Fi.</p>
+<p>Si alguna vez se pierde la conexión adb:</p>
+<ol>
+<li>Asegúrese de que su host todavía esté conectado a la misma red Wi-Fi que su dispositivo Android.</li>
+<li>Vuelva a conectarse ejecutando el adb connect paso nuevamente.</li>
+<li>O si eso no funciona, restablezca su host adb:</li>
+</ol>
+<pre><code class="language-powershell">adb kill-server</code></pre>
+<p>Luego comienza de nuevo desde el principio.</p>
+<h2 id="widgets">Widgets</h2>
+<p>Crear apps con la colección de widgets visuales, estructurales, de plataforma, e interactivos de Flutter.</p>
+<h3 id="uso-de-widgets-básicos">Uso de widgets básicos</h3>
+<p>Estos son algunos de los Widgets imprescindibles que debes conocer antes de construir tu primera app Flutter.</p>
+<h4 id="container">Container</h4>
+<ul>
+<li><p>Un contenedor primero rodea al child con <code>padding</code> y luego aplica <code>constraints</code> adicionales.</p>
+</li>
+<li><p>Los contenedores sin hijos intentará ser lo más grandes posible a menos que las restricciones entrantes sean ilimitadas, en cuyo caso intentan ser lo más pequeñas posible. Los contenedores con hijos se adaptan a sus hijos.</p>
+</li>
+<li><p>El widget <code>Container</code> le ayuda a componer, decorar y colocar widgets secudarios.</p>
+</li>
+</ul>
+<p>Puedes usar propiedades para sus hijos como:</p>
+<pre><code class="language-dart">    padding: EdgeInsets.all(28.0),
+    alignment: Alignment.center,</code></pre>
+<p>Puedes aplicar transformaciones:</p>
+<pre><code class="language-dart">    transform: Matrix4.rotationZ(0.05),</code></pre>
+<p>Por ejemplo con el siguite código:</p>
+<pre><code class="language-dart">import 'package:flutter/material.dart';
+
+<p>void main() {
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
+}</p>
+<p>class MyApp extends StatefulWidget{
+  @override
+  _State createState() =&gt; _State();
+}</p>
+</code><p><code class="language-dart">class _State extends State&lt;MyApp&gt;{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My App'),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(28.0),
+        transform: Matrix4.rotationZ(0.1),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: &lt;Widget&gt;[
+              Text('Aplicación de ejemplo Diego David')
+            ],
+          )
+        )
+      )
+    );
+  }
+}    </code></p></pre><p></p>
+<p>Tenemos el siguite resultado:</p>
+<p align="center">
+    <img width="500" src="screenshots/container_widget_Flutter.jpg">
+</p>
+
+
+<h3 id="row">Row</h3>
+<p>Es un widget que desplega a sus hijos en un arreglo horizontal.</p>
+<p>Para hacer que un hijo ocupe todo el espacio horizontal disponible, debe agregar dentro de un Widget <code>Expanded</code></p>
+<p>Es importante saber que el widget Row <strong>no se desplaza</strong> (y en general se considera un <strong>error</strong> tener más hijos en una fila de los que caben en la sala disponible).</p>
+<p>Para esto considere usar <code>ListView</code> si desea que puedan desplazarse si no hay suficiente espacio.</p>
+<pre><code class="language-dart">body: Container(
+    padding: EdgeInsets.all(28.0),
+    child: Row(
+      children: &lt;Widget&gt;[
+        Expanded(
+            child: Text('Desarrollo de aplicaciones', textAlign: TextAlign.center),
+        ),
+        Expanded(
+          child: Text('Diego David', textAlign: TextAlign.center),
+        ),
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.contain, // otherwise the logo will be tiny
+            child: const FlutterLogo(),
+          ),
+        ),
+      ],
+    ),
+  )</code></pre>
+<p align="center">
+    <img width="500" src="screenshots/row_widget_Flutter.jpg">
+</p>
+
+<h4 id="posibles-problemas">Posibles problemas</h4>
+<p>Puede aparece una franja de advertencia amarilla y negra. Esto se debe cuando los contenidos no flexibles de la fila (aquellos que no están envueltos en widgets <code>Expanded</code> o <code>Flexible</code>) son juntos más anchos que la fila en sí, entonces se dice que la fila se ha desbordado. Cuando una fila se desborda, la fila no tiene espacio restante para compartir entre sus elementos secundarios expandidos y flexibles. La fila informa esto dibujando un cuadro de advertencia de rayas amarillas y negras en el borde que se desborda. Si hay espacio en el exterior de la fila, la cantidad de desbordamiento se imprime en letras rojas.</p>
+<p>Por ejemplo si tú tienes:</p>
+<pre><code class="language-dart">body: Container(
+        padding: EdgeInsets.all(28.0),
+        child: Row(
+          children: &lt;Widget&gt;[
+            const FlutterLogo(),
+            const Text("Desarrollando aplicaciones móviles en Flutter con Diego David, este es un ejemplo de desbordamiento, se mostrará un error"),
+            const Icon(Icons.sentiment_very_satisfied),
+          ],
+        )
+      )    </code></pre>
+<p>Observarás algo similar a:</p>
+<p align="center">
+    <img width="500" src="screenshots/row_widget_Flutter_desbordamiento.jpg">
+</p>
+
+<p>Para solucionar esto envolvemos al segundo hijo en un widget <code>Expanded</code> </p>
+<pre><code class="language-dart">body: Container(
+        padding: EdgeInsets.all(28.0),
+        child: Row(
+          children: &lt;Widget&gt;[
+            const FlutterLogo(),
+            const Expanded(
+              child: Text("Desarrollando aplicaciones móviles en Flutter con Diego David, este es un ejemplo de desbordamiento, NO se mostrará un error"),
+            ),
+            const Icon(Icons.sentiment_very_satisfied),
+          ],
+        )
+      )    </code></pre>
+<p align="center">
+    <img width="500" src="screenshots/row_widget_Flutter_desbordamiento_solucionado.jpg">
+</p>
+
+
+<h3 id="column">Column</h3>
+<p>Un widget que desplega sus hijos en un arreglo vertical.</p>
+<p>Para hacer que un hijo ocupe todo el espacio vertical disponible, debe agregar dentro de un Widget <code>Expanded</code></p>
+<p>Igual que el widget Row, Column <strong>no se desplaza</strong> (y en general se considera un <strong>error</strong> tener más hijos en una columna de los que caben en la sala disponible).</p>
+<p>Si tú tienes un hijo, considera usar <code>Align</code> o <code>Center</code> para posicionar al hijo.</p>
+<p>El siguiente ejemplo consta de tres hijos.</p>
+<pre><code class="language-dart">body: Container(
+        padding: EdgeInsets.all(28.0),
+        child: Column(
+          children: &lt;Widget&gt;[
+            Text('Desarrollo de aplicaciones'),
+            Text('con Flutter'),
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.contain, // otherwise the logo will be tiny
+                child: const FlutterLogo(),
+              ),
+            ),
+          ],
+        )
+      )    </code></pre>
+<p align="center">
+    <img width="500" src="screenshots/column_widget_Flutter.jpg">
+</p>
+
+
+<p>Con <code>crossAxisAlignment</code> alineamos los elementos secundarios, por ejemplo con <code>crossAxisAlignment.start</code> estarán alineados a la izquierda. Con  <code>mainAxisSize.min</code> la columna se contrae para adaptarse a los hijos.</p>
+<pre><code class="language-dart">body: Container(
+        padding: EdgeInsets.all(28.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: &lt;Widget&gt;[
+            Text('Desarrollo de aplicaciones móviles'),
+            Text('con Flutter'),
+            Text('Diego David'),
+          ],
+        )
+      )    </code></pre>
+<p align="center">
+    <img width="500" src="screenshots/column_widget_Flutter_alignment.jpg">
+</p>
+
+
+<h3 id="image">Image</h3>
+<p>Existen varios cnstructores para especificar una imagen:</p>
+<ul>
+<li><code>new Image</code>, para obtener una imagen de un <code>ImageProvider</code>.</li>
+<li><code>new Image.asset</code>, para obtener una imagen de un <code>AssetBundle</code> usando una clave.</li>
+<li><code>new Image.network</code>, para obtener una imagen de una URL.</li>
+<li><code>new Image.file</code>, para obtener una imagen de un <code>File</code>.</li>
+<li><code>new Image.memory</code>, para obtener una imagen de un <code>Uint8List</code>.</li>
+</ul>
+<p>Admite los siguientes formatos: JPEG, PNG, GIF, GIF animado, WebP, WebP animado, BMP y WBMP.</p>
+<p>La imagen se pinta con <code>paintImage</code>.</p>
+<p>El constructor predeterminado se puede usar con cualquier proveedor de imágenes. Por ejemplo, para obtener una imagen de internet:</p>
+<pre><code class="language-dart">const Image(
+  image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+)    </code></pre>
+<p>También se puede colocar una imagen de internet con <code>Image.network</code></p>
+<pre><code class="language-dart">body: Container(
+        padding: EdgeInsets.all(28.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: &lt;Widget&gt;[
+            const Image(
+              image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')
+            ),
+            SizedBox(height: 10),
+            Expanded(
+                child: Image.network('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+            )
+          ],
+        )
+      )    </code></pre>
+<p align="center">
+    <img width="500" src="screenshots/image_widget_Flutter.jpg">
+</p>
+
+
+<h3 id="text">Text</h3>
+<p>El widget <code>Text</code> despliega un <code>string</code> de texto con un simple estilo. El argumento de estilo es opcional.</p>
+<pre><code class="language-dart">body: Container(
+        padding: EdgeInsets.all(28.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: &lt;Widget&gt;[
+            Text(
+              '¡Hola, $_name! ¿Cómo estás?',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            )
+          ],
+        )
+      )    </code></pre>
+<p align="center">
+    <img width="500" src="screenshots/text_widget_Flutter.jpg">
+</p>
+
+<p>Usando el constructor <code>Text.rich</code> el widget <code>Text</code> puede mostrar un párrafo con <code>TextSpan</code> de estilo diferente.</p>
+<pre><code class="language-dart"> const Text.rich(
+              TextSpan(
+                text: 'Hola,', // default text style
+                children: &lt;TextSpan&gt;[
+                  TextSpan(text: ' Diego', style: TextStyle(fontStyle: FontStyle.italic)),
+                  TextSpan(text: ' David', style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            )    </code></pre>
+<p align="center">
+    <img width="500" src="screenshots/text_textspan_widget_Flutter.jpg">
+</p>
+
+<h3 id="icon">Icon</h3>
+<p>Debe haber un widget de direccionalidad ambiental cuando se usa <code>Icon</code>.</p>
+<pre><code class="language-dart">    body: Container(
+        padding: EdgeInsets.all(28.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: &lt;Widget&gt;[
+            Icon(
+              Icons.android,
+              color: Colors.green,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.developer_mode,
+              color: Colors.amber,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.settings_cell,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+          ],
+        )
+      )</code></pre>
+<p align="center">
+    <img width="500" src="screenshots/icon_widget_Flutter.jpg">
+</p>
+
+<h3 id="raisedbutton">RaisedButton</h3>
+<p>Un <code>RaisedButton</code> es basado en el widget <code>Material</code> cuyo <code>Material.elevation</code> incrementa cuando el botón es presionado.</p>
+<p>Ejemplo con RaisedButton deshabilitado, habilitado y degradado.</p>
+<pre><code class="language-dart"> body: Container(
+            padding: EdgeInsets.all(28.0),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: &lt;Widget&gt;[
+                  const RaisedButton(
+                    onPressed: null,
+                    child:
+                        Text('Botón deshabilitado', style: TextStyle(fontSize: 20)),
+                  ),
+                  const SizedBox(height: 30),
+                  RaisedButton(
+                    onPressed: () {},
+                    child: const Text('Botón habilitado',
+                        style: TextStyle(fontSize: 20)),
+                  ),
+                  const SizedBox(height: 30),
+                  RaisedButton(
+                    onPressed: () {},
+                    textColor: Colors.white,
+                    padding: const EdgeInsets.all(0.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: &lt;Color&gt;[
+                            Color(0xFF0D47A1),
+                            Color(0xFF1976D2),
+                            Color(0xFF42A5F5),
+                          ],
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: const Text('Botón gradiente',
+                          style: TextStyle(fontSize: 20)),
+                    ),
+                  ),
+                ],
+              ),
+            )
+        )    </code></pre>
+<p align="center">
+    <img width="500" src="screenshots/raisedbutton_widget_Flutter.jpg">
+</p>
+
+<h3 id="placeholder">Placeholder</h3>
+<p>Un widget que dibuja un cuadro que representa dónde se agregarán otros widgets en algún momento.</p>
+<p>Este widget es útil durante el desarrollo para indicar que la interfaz aún no está completa.</p>
+<p>De forma predeterminada, el marcador de posición se ajusta a su contenedor. Pero puedes limitar el ancho y alto de acuerdo con el <code>fallbackWidth</code> y <code>fallbackHeight</code>. Incluso puedes cambiar el color de la <em>X</em> y el ancho de las líneas con <code>strokeWidth</code>.</p>
+<p>Placeholder puede tomar el lugar de un componente de la <code>IU</code>.</p>
+<pre><code class="language-dart">body: Container(
+            padding: EdgeInsets.all(28.0),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: &lt;Widget&gt;[
+                  Placeholder(
+                    fallbackHeight: 100,
+                    fallbackWidth: 70,
+                    color: Colors.teal,
+                    strokeWidth: 10,
+                  ),
+                  Placeholder(
+                    fallbackHeight: 100,
+                    fallbackWidth: 10,
+                    color: Colors.amber,
+                    strokeWidth: 5,
+                  ),
+                  Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: &lt;Widget&gt;[
+                        Placeholder(
+                          fallbackHeight: 50,
+                          fallbackWidth: 70,
+                          color: Colors.green,
+                          strokeWidth: 5,
+                        ),
+                        Placeholder(
+                          fallbackHeight: 50,
+                          fallbackWidth: 30,
+                          color: Colors.black,
+                          strokeWidth: 5,
+                        ),
+                      ]
+                  )
+                ],
+              ),
+            )
+        )    </code></pre>
+<h2 id="widgets-de-componentes-material">Widgets de Componentes Material</h2>
+<p>Widgets visuales, de comportamiento, ricos en movimientomo implementando las guías de <code>Material Design</code>.</p>
+<h3 id="scaffold">Scaffold</h3>
+<p>Implementa la estructura de diseño visual de diseño de material básico.</p>
+<pre><code class="language-dart">class _State extends State&lt;MyApp&gt; {
+  static const String _title = 'Aplicación con Flutter';
+  int _count = 0;
+
+</code><p><code class="language-dart">  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_title),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(28.0),
+        child:
+            Center(child: Text('You have pressed the button $_count times.')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =&gt; setState(() =&gt; _count++),
+        tooltip: 'Increment Counter',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}    </code></p></pre><p></p>
+<p align="center">
+    <img width="500" src="screenshots/scalfold_widget_Flutter.jpg">
+</p>
+
+<h3 id="bottomnavigationbar">BottomNavigationBar</h3>
+<p>Las barras de navegación inferiores facilitan explorar y cambiar entre las vistas de nivel superior en un solo toque. El widget <code>BottomNavigationBar</code> implementa este componente.</p>
+<p>Un widget de material que se muestra en la parte inferior de una aplicación para seleccionar entre un pequeño número de vistas, generalmente entre tres y cinco.</p>
+<p>Una barra de navegación inferior generalmente se usa junto con un <code>Scaffold</code>.</p>
+<p>El tipo de navegación cambia la forma de mostrar los elementos.</p>
+<ul>
+<li><code>BottomNavigationBarType.fixed</code>, el valor predeterminado cuando hay menos de cuatro elementos.</li>
+<li><code>BottomNavigationBarType.shifting</code> , el valor predeterminado cuando hay cuatro o más elementos.</li>
+</ul>
+<p>El siguiente ejemplo muestra un <code>BottomNavigationBar</code> que tiene tres elementos y el <code>currentIndex</code> se establece en el índice 0. La función <code>_onItemTapped</code> cambia el índice del elemento seleccionado y muestra un mensaje correspondiente en el centro.</p>
+<pre><code class="language-dart">import 'package:flutter/material.dart';
+
+<p>void main() {
+  runApp(MaterialApp(
+    title: "Diego App",
+    home: MyApp(),
+  ));
+}</p>
+<p>class MyApp extends StatefulWidget {
+  @override
+  _State createState() =&gt; _State();
+}</p>
+<p>class _State extends State&lt;MyApp&gt; {
+  static const String _title = 'Aplicación con Flutter';</p>
+<p>  int _selectedIndex = 0;
+  static const TextStyle optionStyle =  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);</p>
+<p>  static const List&lt;Widget&gt; _widgetOptions = &lt;Widget&gt;[
+    Text(
+      'Index 0: Hogar',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Negocio',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Escuela',
+      style: optionStyle,
+    ),
+  ];</p>
+<p>  void _onItemTapped(int index) { //select index
+    setState(() {
+      _selectedIndex = index;
+    });
+  }</p>
+<p>  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_title),
+      ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const &lt;BottomNavigationBarItem&gt;[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            title: Text('School'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),</p>
+<pre><code>);</code></pre>
+</code><p><code class="language-dart">  }
+}    </code></p></pre><p></p>
+<p align="center">
+    <img width="500" src="screenshots/BottomNavigationBar_widget_Flutter.mp4">
+</p>
+
+<h3 id="tabbar">TabBar</h3>
+<p>Un widget de diseño de material que muestra una fila horizontal de pestañas.</p>
+<p>Por lo general, se crea como la parte <code>AppBar.bottom</code> de una <code>AppBar</code> y junto con una <code>TabBarView</code>.</p>
+<p>Si no se proporciona un <code>TabController</code>, se debe proporcionar un padre <code>DefaultTabController</code> en su lugar. La pestaña <code>TabController.length</code> del controlador de pestañas debe ser igual a la longitud de la lista de pestañas y la longitud de la lista <code>TabBarView.children</code>.</p>
+<p>Requiere que uno de sus padres ​​sea un widget <code>Material</code>.</p>
+<h4 id="tabcontroller">TabController</h4>
+<p>Coordina la selección de pestañas entre un <code>TabBar</code> y un <code>TabBarView</code>.</p>
+<p>La propiedad <code>index</code> es el índice de la pestaña seleccionada y <code>animation</code> representa las posiciones de desplazamiento actuales de la barra de pestañas. El índice de la pestaña seleccionada se puede cambiar con <code>animateTo</code>.</p>
+<p>Para el siguiente ejemplo usamos <code>SingleTickerProviderStateMixin</code></p>
+<pre><code class="language-dart">import 'package:flutter/material.dart';
+
+<p>void main() {
+  runApp(MaterialApp(
+    title: "Diego App",
+    home: MyApp(),
+  ));
+}</p>
+<p>class MyApp extends StatefulWidget {
+  const MyApp({ Key key }) : super(key: key);</p>
+<p>  @override
+  _State createState() =&gt; _State();
+}</p>
+<p>class _State extends State&lt;MyApp&gt; with SingleTickerProviderStateMixin {
+  static const String _title = 'Aplicación con Flutter';</p>
+<p>  final List&lt;Tab&gt; myTabs = &lt;Tab&gt;[
+    Tab(text: 'IZQUIERDA'),
+    Tab(text: 'DERECHA'),
+  ];</p>
+<p>  TabController _tabController;</p>
+<p>  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: myTabs.length);
+  }</p>
+<p>  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }</p>
+<p>  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+          title: Text(_title),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: myTabs,
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: myTabs.map((Tab tab) {
+          final String label = tab.text.toLowerCase();
+          return Center(
+            child: Text(
+              'Esta es la pestaña $label',
+              style: const TextStyle(fontSize: 36),
+            ),
+          );
+        }).toList(),
+      ),</p>
+<pre><code>);</code></pre>
+</code><p><code class="language-dart">  }
+}    </code></p></pre><p></p>
+<p align="center">
+    <img width="500" src="screenshots/TabController_widget_Flutter.mp4">
+</p>
+
+
+<h3 id="materialapp">MaterialApp</h3>
+<p>Se basa en una aplicación <code>WidgetsApp</code> agregando funcionalidades específicas de <code>material-design</code>, como <code>AnimatedTheme</code> y <code>GridPaper</code>.</p>
+<p>El <code>MaterialApp</code> configura el nivel superior del <code>Navigator</code> para buscar rutas en el siguiente orden:</p>
+<ol>
+<li>Para la ruta de /, la propiedad <code>home</code>, si no es nula es usada.</li>
+<li>Caso contrario, la tabla de <code>routes</code> es usada, si tiene una entrada para la ruta.</li>
+<li>Caso contrario, <code>onGenerateRoute</code> es llamado.</li>
+<li>Finalmente, si todos fallan <code>onUnknownRoute</code> es llamado.</li>
+</ol>
+<p>El siguiente ejemplo muestra como crear <code>MaterialApp</code> que usa los Mapas de <code>routes</code> para definir la ruta "home" y la ruta "about". </p>
+<pre><code class="language-dart">class _State extends State&lt;MyApp&gt; {
+  static const String _title = 'Aplicación con Flutter';
+
+</code><p><code class="language-dart">  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return
+      MaterialApp(
+        routes: &lt;String, WidgetBuilder&gt;{
+          '/': (BuildContext context) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Home Route'),
+              ),
+            );
+          },
+          '/about': (BuildContext context) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('About Route'),
+              ),
+            );
+          }
+        },
+      );
+  }
+}</code></p></pre><p></p>
+<p align="center">
+    <img width="500" src="screenshots/Material_routes_widget_Flutter.jpg">
+</p>
+
+
+<h3 id="drawer">Drawer</h3>
+<p>Un panel de diseño de material que se desliza horizontalmente desde el borde de un <code>Scaffold</code> para mostrar enlaces de navegación en una aplicación.</p>
+<p>Se suelen usar con la propiedad <code>Scaffold.drawer</code>. El elemento secundario de <code>Drawer</code> suele ser <code>ListView</code> cuyo primer elemento secundario es un <code>DrawerHeader</code> que muestra información de estado sobre el usuario actual.
+Los elementos secundarios de <code>Drawer</code> a menudo se construyen con <code>ListTile</code> y por lo general concluyen con un <code>AboutListTile</code>.
+<br>
+El <code>AppBar</code> automáticamente despliega un <code>IconButton</code> para mostrar el <code>Drawer</code> </p>
+<pre><code class="language-dart">import 'package:flutter/material.dart';
+import 'package:flutterwidgetsbasics/second.dart';
+
+<p>void main() {
+  runApp(MaterialApp(
+    home: MyApp(),
+    routes: &lt;String, WidgetBuilder&gt;{
+      "/second":(BuildContext context) =&gt; SecondActivity()
+    },
+  ));
+}</p>
+<p>class MyApp extends StatefulWidget{
+  @override
+  _State createState() =&gt; _State();
+}</p>
+</code><p><code class="language-dart">class _State extends State&lt;MyApp&gt;{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: &lt;Widget&gt;[
+                UserAccountsDrawerHeader(
+                  //DrawerHeader(
+                  //child: Text('Header'),
+                  accountName: Text('Diego David'),
+                  accountEmail: Text('diego@gmail.com'),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.amber,
+                    child: Text("D.D"),
+                  ),
+                  otherAccountsPictures: &lt;Widget&gt;[
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Text('A'),
+                    )
+                  ],
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                ),
+                ListTile(
+                  title: Text('Ir a segunda actividad'),
+                  trailing: Icon(Icons.looks_two),
+                  onTap: (){
+                    Navigator.pop(context);
+                    Navigator.of(context).pushNamed("/second");
+                    // Navigator.pushNamed(context, "/second");
+                  },
+                ),
+                ListTile(
+                  title: Text('Opcion 2'),
+                  trailing: Icon(Icons.android),
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text('Cerrar'),
+                  trailing: Icon(Icons.close),
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            )
+        )
+    );
+  }
+}</code></p></pre><p></p>
+<p>Un <code>Drawer</code> se puede cerrar llamando a <code>Navigator.pop</code>.</p>
+<pre><code class="language-dart">    ListTile(
+  leading: Icon(Icons.change_history),
+  title: Text('Change history'),
+  onTap: () {
+    // change app state...
+    Navigator.pop(context); // close the drawer
+  },
+);</code></pre>
+<h3 id="simpledialog">SimpleDialog</h3>
+<p>Los diálogos simples pueden proporcionar detalles o acciones adicionales sobre un elemento de la lista. Por ejemplo, pueden mostrar iconos de avatares que clarifican el subtexto u otras acciones ortogonales (como agregar una cuenta).</p>
+<ul>
+<li>Un <code>SimpleDialog</code> ofrece al usuario escoger entre varias opciones.</li>
+<li>Las opciones son normalmente representadas usando widgets <code>SimpleDialogOption</code>.</li>
+<li>Para diálogos que informan al usuario sobre una situación, considere usar <code>AlertDialog</code>.</li>
+<li>Por lo general se pasa como widget secundario <code>showDialog</code>, que muestra el cuadro de diálogo.</li>
+</ul>
+<p>En el siguiente ejemplo se le pide al usuario que escoja entre dos opciones. Estas opciones se representan como una enumeración. Si se cancela el resultado devuelto es un nulo. </p>
+<pre><code class="language-dart">void main() {
+  runApp(MaterialApp(
+      home: MyApp(),
+      ));
+}
+
+<p>class MyApp extends StatefulWidget {
+  @override
+  _State createState() =&gt; _State();
+}</p>
+<p>enum Options{YES,NO}</p>
+<p>class _State extends State&lt;MyApp&gt; {
+  String _value = '';</p>
+<p>  void _setValue(String value) =&gt; setState(()=&gt; _value = value);</p>
+<p>  Future _event() async{
+    switch(
+    await showDialog(
+      context: context,
+      child: SimpleDialog(
+        title: Text('Texto del dialog'),
+        children: &lt;Widget&gt;[
+          SimpleDialogOption(child: Text('Ok'), onPressed: (){Navigator.pop(context, Options.YES);},),
+          SimpleDialogOption(child: Text('Cancel'), onPressed: (){Navigator.pop(context, Options.NO);},)
+        ],
+      ),
+    )
+    ){
+      case Options.YES:
+        _setValue("YES");
+        break;
+      case Options.NO:
+        _setValue("NO");
+        break;
+    }; //switch
+  }//_event</p>
+</code><p><code class="language-dart">  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: Container(
+            padding: EdgeInsets.all(28.0),
+            child: Center(
+                child: Column(
+                  children: &lt;Widget&gt;[
+                    Text(_value),
+                    RaisedButton(
+                      onPressed: _event,
+                      child: Text('Click'),
+                    )
+                  ],
+                )
+            )
+        )
+    );
+  }
+}    </code></p></pre><p></p>
+<h3 id="alertdialog">AlertDialog</h3>
+<p>Las alertas son interrupciones urgentes que requieren reconocimiento e informan al usuario sobre una situación. El widget <code>AlertDialog</code> implementa este componente.</p>
+<pre><code class="language-dart">class MyApp extends StatefulWidget {
+  @override
+  _State createState() =&gt; _State();
+}
+
+<p>class _State extends State&lt;MyApp&gt; {</p>
+<p>  Future _showAlert(BuildContext context, String msg) async{
+    return showDialog(context: context, child: AlertDialog(
+      title: Text(msg),
+      actions: &lt;Widget&gt;[
+        FlatButton(
+          onPressed: ()=&gt; Navigator.pop(context),
+          child: Text('Ok'),
+        )
+      ],
+    ));
+  }</p>
+</code><p><code class="language-dart">  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: Container(
+            padding: EdgeInsets.all(28.0),
+            child: Center(
+                child: Column(
+                  children: &lt;Widget&gt;[
+                    Text('Texto'),
+                    RaisedButton(
+                      onPressed: ()=&gt; _showAlert(context, 'Mensaje de alerta'),
+                      child: Text('Click alert'),
+                    )
+                  ],
+                )
+            )
+        )
+    );
+  }
+}</code></p></pre><p></p>
+<h2 id="wigets-de-animación-y-movimiento">Wigets de animación y movimiento</h2>
+<p>Wigets que brindan animaciones a tu aplicación.</p>
+<h3 id="animatedcontainer">AnimatedContainer</h3>
+<p>Versión animada de <code>Container</code> que gradualmente cambia sus valores en un periodo de tiempo.</p>
+<ul>
+<li>El <code>AnimatedContainer</code> automáticamente animará entre los viejos y antiguos valores de propiedades cuando ellos cambian.</li>
+<li>Esta clase es útil para generar transiciones implícitas simples entre diferentes parámetros al <code>Container</code> con su <code>AnimationController</code> interno.</li>
+</ul>
+<p>El siguiente ejemplo hace una transición de un Contenedor animado entre dos estados.</p>
+<pre><code class="language-dart">class _State extends State&lt;MyApp&gt; {
+  bool selected = false;
+
+</code><p><code class="language-dart">  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: GestureDetector(
+          onTap: () {
+            setState(() {
+              selected = !selected;
+            });
+          },
+          child: Center(
+            child: AnimatedContainer(
+              width: selected ? 200.0 : 100.0,
+              height: selected ? 100.0 : 200.0,
+              color: selected ? Colors.red : Colors.blue,
+              alignment:
+                  selected ? Alignment.center : AlignmentDirectional.topCenter,
+              duration: Duration(seconds: 2),
+              curve: Curves.fastOutSlowIn,
+              child: FlutterLogo(size: 75),
+            ),
+          ),
+        )
+    );
+  }
+}    </code></p></pre><p></p>
+<p align="center">
+    <img width="500" src="screenshots/AnimatedContainer_widget_Flutter.mp4">
+</p>
+
+<h3 id="animatedcrossfade">AnimatedCrossFade</h3>
+<p>Un widget que se desvanece entre dos hijos dados y se anima entre sus tamaños.</p>
+<ul>
+<li>La animación se controla a través del parámetro <code>crossFadeState</code>. </li>
+<li><code>firstCurve</code> y <code>secondCurve</code> representan las curvas de opacidad de los dos hijos.</li>
+<li>Este widget está destinado a usarse para desvanecer un par de widgets con el mismo ancho. </li>
+<li>En el caso de que los dos hijos tengan diferentes alturas, la animación se recorta cuando los hijos se desbordan alineando su borde superior, lo que significa que se recortará el inferior.</li>
+</ul>
+<p>El siguiente código se desvanece entre dos representaciones del logotipo de Flutter. Depende del valor de <code>_first</code>, cuando es verdadero se muestra  el primer logotipo, de lo contrario se muestra el segundo logotipo.</p>
+<pre><code class="language-dart">class _State extends State&lt;MyApp&gt; {
+  bool _first = false;
+
+</code><p><code class="language-dart">  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body:
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _first = !_first;
+            });
+          },
+          child: Center(
+              child: AnimatedCrossFade(
+                duration: const Duration(seconds: 3),
+                firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
+                secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
+                crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              )
+          ),
+        )
+    );
+  }
+}
+</code></p></pre><p></p>
+<p align="center">
+    <img width="500" src="screenshots/AnimatedCrossFade_widget_Flutter.mp4">
+</p>
+
+<h2 id="gestión-de-estados">Gestión de estados</h2>
+<p>Llega un punto en el que necesitas compartir el estado de la aplicación entre pantallas, a través de tu aplicación.
+A continuación, veremos los conceptos básicos del manejo del estado en las aplicaciones Flutter.</p>
+<ul>
+<li>Si vienes a Flutter desde un framework imperativo (como Android SDK o iOS UIKit), debes empezar a pensar en el desarrollo de aplicaciones a partir de una nueva perspectiva.</li>
+<li>Muchas de las suposiciones que puedes tener no se aplican a Flutter. </li>
+<li>Por ejemplo, en Flutter, está bien reconstruir partes de su interfaz de usuario desde cero en lugar de modificarlas. </li>
+<li>Flutter es <code>declarativo</code>. Esto significa que Flutter construye su interfaz de usuario para reflejar el estado actual de su aplicación:</li>
+</ul>
+<p align="center">
+    <img width="500" src="screenshots/Funciones_estado_flutter.png">
+</p>
+
+<ul>
+<li>En el sentido más amplio posible, el estado de una aplicación es todo lo que existe en la memoria cuando la aplicación está en ejecución. </li>
+</ul>
+<h3 id="estado-efímero">Estado efímero</h3>
+<p>No hay necesidad de serializarlo, y no cambia de manera compleja.
+En otras palabras, no es necesario utilizar técnicas de gestión de estado (“ScopedModel”, “Redux”, etc.) en este tipo de estados. Todo lo que necesitas es un “StatefulWidget”.</p>
+<p>En el siguiente ejemplo, <code>_índice</code> es un estado efímero.</p>
+<pre><code class="language-dart">    class MyHomepage extends StatefulWidget {
+  @override
+  _MyHomepageState createState() =&gt; _MyHomepageState();
+}
+
+<p>class _MyHomepageState extends State&lt;MyHomepage&gt; {
+  int _index = 0;</p>
+</code><p><code class="language-dart">  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: _index,
+      onTap: (newIndex) {
+        setState(() {
+          _index = newIndex;
+        });
+      },
+      // ... items ...
+    );
+  }
+}</code></p></pre><p></p>
+<ul>
+<li>Usar <code>setState()</code> y un campo dentro de la clase <code>StatefulWidget</code> es completamente natural. </li>
+<li>Ninguna otra parte de tu aplicación necesita acceder a <code>_index</code>. </li>
+<li>La variable sólo cambia dentro del widget MyHomePage.</li>
+<li>Si el usuario cierra y reinicia la aplicación, no importa que el <code>_índice</code> se restablezca a cero.</li>
+</ul>
+<h3 id="estado-de-la-app">Estado de la app</h3>
+<p>Llamamos estado de la aplicación cuando se quiere compartir en muchas partes de la aplicación, y se desea mantener entre sesiones de usuario.     </p>
+<p>Ejemplos de estados de aplicación:</p>
+<ul>
+<li>Información de inicio de sesión</li>
+<li>Notificaciones en una aplicación de redes sociales</li>
+<li>El carrito de compras en una aplicación de comercio electrónico</li>
+<li>Estado de los artículos leídos/no leídos en una aplicación de noticias</li>
+</ul>
+<p>No existe una regla clara y universal para distinguir si una variable en particular es efímera o es estado de aplicación. A veces, tendrás que refactorizar uno en otro.</p>
+<p>Por esa razón, toma el siguiente diagrama proporcionado por Flutter (con el entendimiento de que exista la probabilidad de que algo sea falso o incorrecto):</p>
+<p align="center">
+    <img width="500" src="screenshots/estado_efimero_estado_app_Flutter.png">
+</p>
+
+<p>En resumen, hay dos tipos conceptuales de estado en cualquier aplicación Flutter. El estado efímero puede ser implementado usando <code>State</code> y <code>setState()</code>, y a menudo es local a un solo widget. El resto es el estado de la aplicación.</p>
+<h3 id="gestión-sencilla-del-estado-de-las-aplicaciones">Gestión sencilla del estado de las aplicaciones</h3>
+<p>Usaremos <code>Provider</code> que es fácil de entender y no utiliza mucho código. También utiliza conceptos que son aplicables en todos los demás enfoques.</p>
+<p>Ejemplo sencillo:</p>
+<p>Una aplicación que tiene tres pantallas separadas:
+    * una ventana de inicio de sesión representado por el widget: <code>MyLoginScreen</code>
+    * una ventana de catálogo representado por el widget: <code>MyCatalog</code>
+    * una ventana de carrito representado por el widget: <code>MyCart</code></p>
+<p>La pantalla del catálogo incluye una barra de aplicaciones personalizada (MyAppBar) y una vista de desplazamiento de muchos elementos de la lista (MyListItems).</p>
+<p align="center">
+    <img width="500" src="screenshots/widget_arbol-simple_flutter.png">
+</p>
+
+<p>Así que tenemos al menos 6 subclases de Widget. Muchos de ellos necesitarán acceso a un estado que “pertenece” a otra parte. Por ejemplo, cada <code>MyListItem</code> podrá añadir al carrito. También podría querer ver si el artículo que está mostrando ya está en el carrito.</p>
+<h4 id="estado-de-elevación">Estado de elevación</h4>
+<p>En Flutter, tiene sentido mantener el estado por encima de los widgets que lo utilizan. Es difícil cambiar imperativamente un widget desde fuera, llamando a un método en él.</p>
+<p>En Flutter, <strong>construyes un nuevo widget cada vez que su contenido cambia</strong>. En lugar de <code>MyCart.updateWith(somethingNew)</code> (una llamada de método) usas <code>MyCart(contents)</code> (un constructor).</p>
+<pre><code class="language-dart">// CORRECTO
+void myTapHandler(BuildContext context) {
+  var cartModel = somehowGetMyCartModel(context);
+  cartModel.add(item);
+}    </code></pre>
+<p>Con esto <code>MyCart</code> tiene sólo una ruta de código para construir cualquier versión de la interfaz de usuario.</p>
+<pre><code class="language-dart">// CORRECTO
+Widget build(BuildContext context) {
+  var cartModel = somehowGetMyCartModel(context);
+  return SomeWidget(
+    // Just construct the UI once, using the current state of the cart.
+    // ···
+  );
+}    </code></pre>
+<p> MyCart no necesita preocuparse por el ciclo de vida soló declara qué mostrar para cualquier contents dado. Cuando eso cambia, el widget MyCart viejo desaparecer y es completamente reemplazado por uno nuevo.</p>
+<p align="center">
+    <img width="500" src="screenshots/arbol_widget_flutter_cart.png">
+</p>
+
+<h4 id="acceso-al-estado">Acceso al estado</h4>
+<p>Cuando el usuario hace clic en uno de los artículos del catálogo, se añade al carrito.
+Una opción simple es proporcionar un <code>callback</code> a la que <code>MyListItem</code> puede llamar cuando se hace clic en el. 
+Entonces, dentro de <code>MyCatalog</code> puedes tener lo siguiente:</p>
+<pre><code class="language-dart">@override
+Widget build(BuildContext context) {
+  return SomeWidget(
+    // Contruye el widget, pasando la referencia al método de superior.
+    MyListItem(myTapCallback),
+  );
+}
+
+</code><p><code class="language-dart">void myTapCallback(Item item) {
+  print('user tapped on $item');
+}    </code></p></pre><p></p>
+<p>Esto funciona bien, pero para el estado de la aplicación que necesitas modificar desde muchos lugares diferentes, tendrías que pasar un montón de llamadas de retorno.</p>
+<p>Afortunadamente, Flutter tiene mecanismos para que los widgets proporcionen datos y servicios a sus descendientes.
+Usaremos un paquete que funciona con los widgets de bajo nivel pero que es fácil de usar. Se llama <code>provider</code>.
+Con provider, no tienes que preocuparte por las llamadas de retorno o InheritedWidgets. Pero necesitas entender 3 conceptos:</p>
+<ul>
+<li>ChangeNotifier</li>
+<li>ChangeNotifierProvider</li>
+<li>Consumer</li>
+</ul>
+<h5 id="changenotifier">ChangeNotifier</h5>
+<ul>
+<li>Una clase que proporciona notificaciones a los cambios a sus ‘listeners’. Es como un Observable.</li>
+<li>Para apps muy simples, te basta con un único ChangeNotifier.</li>
+</ul>
+<p>Gestionaremos el estado del carro en un <code>ChangeNotifier</code>.</p>
+<pre><code class="language-dart">class CartModel extends ChangeNotifier {
+  /// Estado privado del carrito.
+  final List&lt;Item&gt; _items = [];
+
+<p>  /// Una vista inmodificable de items en el carrito.
+  UnmodifiableListView&lt;Item&gt; get items =&gt; UnmodifiableListView(_items);</p>
+<p>   /// El precio total actual de todos los items (asumiendo que todos cuestan $42).
+  int get totalPrice =&gt; _items.length * 42;</p>
+</code><p><code class="language-dart">  /// Añadir [item] al carro. Esta es la única manera de modificar el carrito desde fuera.
+  void add(Item item) {
+    _items.add(item);
+   // Esta llamada dice a los widgets que están escuchando este modelo que se reconstruyan.
+    notifyListeners();
+  }
+}    </code></p></pre><p></p>
+<p>El único código que es específico de ChangeNotifier es la llamada a <code>notifyListeners()</code></p>
+<h3 id="json-y-serialización">JSON y serialización</h3>
+<p>Cuando creamos apps conectadas a la red, lo más probable es que tengas que consumir algún JSON, tarde o temprano.</p>
+<p>Veremos dos estrategias generales para trabajar con JSON:</p>
+<ul>
+<li>Serialización manual</li>
+<li>Serialización automática usando auto-generación de código</li>
+</ul>
+<p>Para proyectos pequeños  usar auto-generación de código puede ser exagerado.</p>
+<h4 id="serialización-manual-para-pequeños-proyectos">Serialización manual para pequeños proyectos</h4>
+<p>Implica pasar una cadena JSON en bruto a la función <code>json.decode()</code> y luego buscar los valores que necesita en el <code>Map&lt;String, dynamic&gt;</code> que devuelve el método.
+Flutter tiene la biblioteca <code>dart:convert</code> que incluye un sencillo codificador y decodificador JSON.</p>
+<p>Aquí hay un ejemplo de un JSON para un modelo sencillo.</p>
+<pre><code class="language-dart">{
+  "name": "Diego David",
+  "email": "diego@example.com"
+}    </code></pre>
+<p>Con <code>dart:convert</code>, puedes codificar este modelo JSON de dos maneras.</p>
+<h5 id="serializar-un-json-en-línea">Serializar un JSON en línea</h5>
+<p>Puedes decodificar el JSON llamando al método <code>json.decode</code></p>
+<pre><code class="language-dart">Map&lt;String, dynamic&gt; user = jsonDecode(jsonString);
+
+</code><p><code class="language-dart">print('Hola, ${user['name']}!');
+print('Enviamos el enlace de verificación a ${user['email']}.');    </code></p></pre><p></p>
+<p>Desafortunadamente, <code>jsonDecode()</code> simplemente devuelve un <code>Map&lt;String, dynamic&gt;</code>, significando que no conoces los tipos de valores hasta el tiempo de ejecución.
+Con esta aproximación, pierdes la mayoría de las características del tipado estático del lenguaje:</p>
+<ul>
+<li>seguridad de tipos</li>
+<li>autocompletado</li>
+<li>las excepciones en tiempo de compilación. </li>
+</ul>
+<h5 id="serializar-un-json-en-una-clase-modelo">Serializar un JSON en una clase modelo</h5>
+<p>Podemos resolver los problemas anteriores  introduciendo una clase de modelo plana, llamada <code>User</code> en este ejemplo. Dentro de la clase User, encontrarás:</p>
+<ul>
+<li>Un constructor <code>User.fromJson()</code>, para construir una nueva instancia de User desde una estructura de mapa.</li>
+<li>Un método <code>toJson()</code>, que convierte una instancia User en un mapa.</li>
+</ul>
+<pre><code class="language-dart">class User {
+  final String name;
+  final String email;
+
+<p>  User(this.name, this.email);</p>
+<p>  User.fromJson(Map&lt;String, dynamic&gt; json)
+      : name = json['name'],
+        email = json['email'];</p>
+</code><p><code class="language-dart">  Map&lt;String, dynamic&gt; toJson() =&gt;
+    {
+      'name': name,
+      'email': email,
+    };
+}    </code></p></pre><p></p>
+<p>Con esto la responsabilidad de la lógica de <strong>decodificación</strong> esta ahora situada dentro del propio modelo. Con esta aproximación, puedes decodificar un usuario fácilmente.</p>
+<pre><code class="language-dart">Map userMap = jsonDecode(jsonString);
+var user = new User.fromJson(userMap);
+
+</code><p><code class="language-dart">print('Hola,  ${user.name}!');
+print('Enviamos el enlace de verificación a ${user.email}.');    </code></p></pre><p></p>
+<p>Para codificar un usuario, pasa el objeto <code>User</code> al método <code>jsonEncode()</code>. No necesitas llamar al método <code>toJson()</code>, porque <code>jsonEncode()</code> ya hace esto por ti.</p>
+<pre><code class="language-dart">String json = jsonEncode(user);</code></pre>
+<p>En la práctica, los métodos <code>User.fromJson()</code> y <code>User.toJson()</code> necesitan ambos tener test unitarios para verificar un comportamiento correcto.</p>
+<p>Sin embargo, los escenarios del mundo real no son normalmente tan simples. Es poco probable que use respuestas JSON tan pequeñas.</p>
+<h4 id="serializar-json-usando-librerías-de-auto-generación-de-código">Serializar JSON usando librerías de auto-generación de código</h4>
+<p>Aunque hay otras bibliotecas disponibles, esta guía usa el paquete <a href="https://pub.dev/packages/json_serializable">json_serializable</a>, un generador de código automatizado que genera el boilerplate del JSON serializado por ti.
+Esto te ayuda a minimizar el riesgo de tener excepciones por la serialización JSON en tiempo de ejecución.</p>
+<p>Para incluir <code>json_serializable</code>en tu proyecto, necesitas una dependencia regular, y dos <em>dev dependencies</em>.</p>
+<pre><code class="language-dart">dependencies:
+  # Tus otras dependencias regulares aquí
+  json_annotation: ^2.0.0
+
+<p>dev_dependencies:</p>
+<h1 id="tus-otras-dev_dependencies-aquí">Tus otras dev_dependencies aquí</h1>
+</code><p><code class="language-dart">  build_runner: ^1.0.0
+  json_serializable: ^2.0.0    </code></p></pre><p></p>
+<p>Lo siguiente muestra como convertir una clase <code>User</code> en una clase <code>json_serializable</code>. </p>
+<pre><code class="language-dart">import 'package:json_annotation/json_annotation.dart';
+
+<p>part 'user.g.dart';</p>
+<p>@JsonSerializable()</p>
+<p>class User {
+  User(this.name, this.email);</p>
+<p>  String name;
+  String email;</p>
+<p>   factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);</p>
+</code><p><code class="language-dart">  Map&lt;String, dynamic&gt; toJson() =&gt; _$UserToJson(this);
+}    </code></p></pre><p></p>
+<p>Con esta configuración, el auto-generador de código fuente, genera código para codificar y decodificar los campos <code>name</code> y <code>email</code> desde JSON.</p>
+<h5 id="auto-generación-de-código-una-única-vez">Auto-generación de código una única vez</h5>
+<p>Ejecutando <code>flutter pub run build_runner build</code> en la raíz del proyecto, generas el código de serialización JSON para tus modelos, siempre que sea necesario. Esto desencadena una única compilación que pasa por los ficheros fuente, elige los relevantes, y genera el código de serialización necesario para ellos.</p>
+<h5 id="auto-generación-contínua-de-código">Auto-generación contínua de código</h5>
+<p>Un <code>watcher</code> hace nuestro proceso de auto-generación de código más conveniente. Este observa cambios en los ficheros de nuestro proyecto y compila automáticamente los archivos necesarios cuando se necesita. Inicia el watcher ejecutando <code>flutter pub run build_runner watch</code> en la raíz del proyecto.</p>
+<p>El auto-generador de código fuente crea un fichero llamado <code>user.g.dart</code>, que tiene toda la lógica de serialización necesaria. Ya no tienes que escribir más, pruebas automatizadas para asegurar que la serailización funciona</p>
+<h2 id="recursos">Recursos</h2>
+<p><a href="https://flutter-es.io/docs/development/ui/widgets">Widgets en Flutter</a></p>
+<p><a href="https://developer.android.com/studio/command-line/adb#wireless">developer.android</a></p>
+
+
+    <script src="./styles/prism.js"></script>
+</body>
+</html>
