@@ -913,15 +913,106 @@ Un `Drawer` se puede cerrar llamando a `Navigator.pop`.
 ```
 
 
+### SimpleDialog 
 
+Los diálogos simples pueden proporcionar detalles o acciones adicionales sobre un elemento de la lista. Por ejemplo, pueden mostrar iconos de avatares que clarifican el subtexto u otras acciones ortogonales (como agregar una cuenta).
 
+* Un `SimpleDialog` ofrece al usuario escoger entre varias opciones.
+* Las opciones son normalmente representadas usando widgets `SimpleDialogOption`.
+* Para diálogos que informan al usuario sobre una situación, considere usar `AlertDialog`.
+* Por lo general se pasa como widget secundario `showDialog`, que muestra el cuadro de diálogo.
 
-
+En el siguiente ejemplo se le pide al usuario que escoja entre dos opciones. Estas opciones se representan como una enumeración. Si se cancela el resultado devuelto es un nulo. 
 
 
 ```dart
-	
+void main() {
+  runApp(MaterialApp(
+      home: MyApp(),
+      ));
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _State createState() => _State();
+}
+
+enum Options{YES,NO}
+
+class _State extends State<MyApp> {
+  String _value = '';
+
+  void _setValue(String value) => setState(()=> _value = value);
+
+  Future _event() async{
+    switch(
+    await showDialog(
+      context: context,
+      child: SimpleDialog(
+        title: Text('Texto del dialog'),
+        children: <Widget>[
+          SimpleDialogOption(child: Text('Ok'), onPressed: (){Navigator.pop(context, Options.YES);},),
+          SimpleDialogOption(child: Text('Cancel'), onPressed: (){Navigator.pop(context, Options.NO);},)
+        ],
+      ),
+    )
+    ){
+      case Options.YES:
+        _setValue("YES");
+        break;
+      case Options.NO:
+        _setValue("NO");
+        break;
+    }; //switch
+  }//_event
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: Container(
+            padding: EdgeInsets.all(28.0),
+            child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Text(_value),
+                    RaisedButton(
+                      onPressed: _event,
+                      child: Text('Click'),
+                    )
+                  ],
+                )
+            )
+        )
+    );
+  }
+}	
 ```
+
+### AlertDialog
+
+Las alertas son interrupciones urgentes que requieren reconocimiento e informan al usuario sobre una situación. El widget `AlertDialog` implementa este componente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```dart
 	

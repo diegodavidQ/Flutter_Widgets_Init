@@ -1,21 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutterwidgetsbasics/second.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: MyApp(),
-    routes: <String, WidgetBuilder>{
-      "/second":(BuildContext context) => SecondActivity()
-    },
-  ));
+      home: MyApp(),
+      ));
 }
 
-class MyApp extends StatefulWidget{
+class MyApp extends StatefulWidget {
   @override
   _State createState() => _State();
 }
 
-class _State extends State<MyApp>{
+enum Options{YES,NO}
+
+class _State extends State<MyApp> {
+  String _value = '';
+
+  void _setValue(String value) => setState(()=> _value = value);
+
+  Future _event() async{
+    switch(
+    await showDialog(
+      context: context,
+      child: SimpleDialog(
+        title: Text('Texto del dialog'),
+        children: <Widget>[
+          SimpleDialogOption(child: Text('Ok'), onPressed: (){Navigator.pop(context, Options.YES);},),
+          SimpleDialogOption(child: Text('Cancel'), onPressed: (){Navigator.pop(context, Options.NO);},)
+        ],
+      ),
+    )
+    ){
+      case Options.YES:
+        _setValue("YES");
+        break;
+      case Options.NO:
+        _setValue("NO");
+        break;
+    }; //switch
+  }//_event
+
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -23,53 +49,18 @@ class _State extends State<MyApp>{
         appBar: AppBar(
           title: Text('My App'),
         ),
-        drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                UserAccountsDrawerHeader(
-                  //DrawerHeader(
-                  //child: Text('Header'),
-                  accountName: Text('Diego David'),
-                  accountEmail: Text('diego@gmail.com'),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundColor: Colors.amber,
-                    child: Text("D.D"),
-                  ),
-                  otherAccountsPictures: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Text('A'),
+        body: Container(
+            padding: EdgeInsets.all(28.0),
+            child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Text(_value),
+                    RaisedButton(
+                      onPressed: _event,
+                      child: Text('Click'),
                     )
                   ],
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-                ListTile(
-                  title: Text('Ir a segunda actividad'),
-                  trailing: Icon(Icons.looks_two),
-                  onTap: (){
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed("/second");
-                    // Navigator.pushNamed(context, "/second");
-                  },
-                ),
-                ListTile(
-                  title: Text('Opcion 2'),
-                  trailing: Icon(Icons.android),
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: Text('Cerrar'),
-                  trailing: Icon(Icons.close),
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
+                )
             )
         )
     );
